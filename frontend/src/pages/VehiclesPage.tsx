@@ -19,7 +19,7 @@ const VehiclesPage: React.FC = () => {
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['vehicles', filters],
-    queryFn: () => vehicleService.getVehicles(filters),
+    queryFn: () => vehicleService.getVehicles(filters as any),
   });
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {

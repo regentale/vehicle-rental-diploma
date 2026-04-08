@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { vehicleService } from '../services/vehicle.service';
+// @ts-ignore
 import { FaStar, FaMapMarkerAlt, FaCar, FaGasPump, FaCog, FaUsers, FaCalendar, FaRegHeart } from 'react-icons/fa';
 
 const VehicleDetailPage: React.FC = () => {
