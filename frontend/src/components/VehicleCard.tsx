@@ -90,7 +90,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, onFavoriteToggle, is
 
         <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/5">
           <div>
-            <span className="text-xl font-black text-white">${vehicle.pricePerDay}</span>
+            <span className="text-xl font-black text-white">{vehicle.pricePerDay} ₸</span>
             <span className="text-gray-600 text-xs ml-1">/день</span>
           </div>
           <Link

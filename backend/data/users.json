@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "id": "owner-1",
+    "email": "arman@rentwheels.kz",
+    "password": "$2b$10$placeholder",
+    "firstName": "Арман",
+    "lastName": "Жумабаев",
+    "phone": "+7 (701) 555-12-34",
+    "role": "OWNER",
+    "isVerified": true,
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-01-15T10:00:00Z"
+  },
+  {
+    "id": "owner-2",
+    "email": "aida@rentwheels.kz",
+    "password": "$2b$10$placeholder",
+    "firstName": "Аида",
+    "lastName": "Нурланова",
+    "phone": "+7 (702) 333-45-67",
+    "role": "OWNER",
+    "isVerified": true,
+    "createdAt": "2024-02-20T12:00:00Z",
+    "updatedAt": "2024-02-20T12:00:00Z"
+  },
+  {
+    "id": "admin-1",
+    "email": "admin@rentwheels.kz",
+    "password": "$2b$10$placeholder",
+    "firstName": "Админ",
+    "lastName": "Системы",
+    "phone": "+7 (700) 000-00-01",
+    "role": "ADMIN",
+    "isVerified": true,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  }
+]

@@ -126,8 +126,8 @@ const MyBookingsPage: React.FC = () => {
 
                   <div className="mt-4 pt-4 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center">
                     <div className="mb-4 sm:mb-0">
-                      <span className="text-xl font-black gradient-text-alt">${booking.totalPrice}</span>
-                      <span className="text-gray-600 ml-2 text-xs">(${booking.pricePerDay}/день)</span>
+                      <span className="text-xl font-black gradient-text-alt">{booking.totalPrice} ₸</span>
+                      <span className="text-gray-600 ml-2 text-xs">({booking.pricePerDay} ₸/день)</span>
                     </div>
                     <div className="flex space-x-2">
                       <Link to={`/bookings/${booking.id}`} className="btn-outline px-4 py-2 rounded-xl text-xs font-bold">

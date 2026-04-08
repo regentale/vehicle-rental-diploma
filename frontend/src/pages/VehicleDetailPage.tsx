@@ -170,11 +170,11 @@ const VehicleDetailPage: React.FC = () => {
 
               <div className="border-t border-b border-white/5 py-4 mb-4">
                 <div className="flex items-baseline">
-                  <span className="text-4xl font-black gradient-text-alt">${vehicle.pricePerDay}</span>
+                  <span className="text-4xl font-black gradient-text-alt">{vehicle.pricePerDay} ₸</span>
                   <span className="text-gray-600 ml-2">/день</span>
                 </div>
                 {vehicle.pricePerHour && (
-                  <p className="text-sm text-gray-600 mt-1">или ${vehicle.pricePerHour}/час</p>
+                  <p className="text-sm text-gray-600 mt-1">или {vehicle.pricePerHour} ₸/час</p>
                 )}
               </div>
 

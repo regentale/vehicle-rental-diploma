@@ -161,14 +161,14 @@ const BookingPage: React.FC = () => {
               </div>
 
               <div className="space-y-2.5 mb-4 pb-4 border-b border-white/5 text-sm">
-                <div className="flex justify-between"><span className="text-gray-500">Цена за день:</span><span className="font-bold text-white">${vehicle.pricePerDay}</span></div>
+                <div className="flex justify-between"><span className="text-gray-500">Цена за день:</span><span className="font-bold text-white">{vehicle.pricePerDay} ₸</span></div>
                 <div className="flex justify-between"><span className="text-gray-500">Количество дней:</span><span className="font-bold text-white">{calculateTotalDays()}</span></div>
-                <div className="flex justify-between"><span className="text-gray-500">Стоимость аренды:</span><span className="font-bold text-white">${calculateTotalPrice()}</span></div>
+                <div className="flex justify-between"><span className="text-gray-500">Стоимость аренды:</span><span className="font-bold text-white">{calculateTotalPrice()} ₸</span></div>
               </div>
 
               <div className="flex justify-between items-center mb-4">
                 <span className="text-base font-bold text-white">Итого:</span>
-                <span className="text-2xl font-black gradient-text-alt">${calculateTotalPrice()}</span>
+                <span className="text-2xl font-black gradient-text-alt">{calculateTotalPrice()} ₸</span>
               </div>
 
               <div className="glass rounded-xl p-3.5 text-sm">

@@ -10,9 +10,9 @@ const HomePage: React.FC = () => {
   }, []);
 
   const popularCars = [
-    { name: 'Toyota Camry', year: 2024, price: 89, rating: 4.8, reviews: 124, fuel: 'Бензин', transmission: 'Автомат', seats: 5, tag: 'Популярный' },
-    { name: 'BMW X5', year: 2024, price: 159, rating: 4.9, reviews: 89, fuel: 'Дизель', transmission: 'Автомат', seats: 5, tag: 'Премиум' },
-    { name: 'Mercedes C-Class', year: 2023, price: 129, rating: 4.7, reviews: 156, fuel: 'Бензин', transmission: 'Автомат', seats: 5, tag: 'Хит' },
+    { name: 'Toyota Camry 70', year: 2024, price: '25 000', rating: 4.8, reviews: 124, fuel: 'Бензин', transmission: 'Автомат', seats: 5, tag: 'Популярный', image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&h=600&fit=crop' },
+    { name: 'BMW X5 xDrive', year: 2024, price: '55 000', rating: 4.9, reviews: 89, fuel: 'Дизель', transmission: 'Автомат', seats: 5, tag: 'Премиум', image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop' },
+    { name: 'Mercedes E-Class', year: 2023, price: '45 000', rating: 4.7, reviews: 156, fuel: 'Бензин', transmission: 'Автомат', seats: 5, tag: 'Хит', image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop' },
   ];
 
   const stats = [
@@ -189,7 +189,7 @@ const HomePage: React.FC = () => {
                     'bg-gradient-to-br from-violet-500/30 to-transparent'
                   }`}></div>
                   
-                  <FaCar className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-7xl text-white/10 group-hover:text-white/20 group-hover:scale-125 transition-all duration-700" />
+                  <img src={car.image} alt={car.name} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90" />
                   
                   {/* Tag */}
                   <div className="absolute top-4 left-4">
@@ -237,7 +237,7 @@ const HomePage: React.FC = () => {
 
                   <div className="flex justify-between items-center pt-5 border-t border-white/5">
                     <div>
-                      <span className="text-2xl font-black text-white">${car.price}</span>
+                      <span className="text-2xl font-black text-white">{car.price} ₸</span>
                       <span className="text-gray-600 text-xs">/день</span>
                     </div>
                     <Link
@@ -316,9 +316,9 @@ const HomePage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { name: 'Алексей К.', text: 'Отличный сервис! Арендовал BMW на неделю, всё прошло гладко. Машина была в идеальном состоянии.', rating: 5, color: 'from-orange-500 to-amber-500' },
-              { name: 'Мария С.', text: 'Быстрое оформление и очень удобный сайт. Служба поддержки помогла подобрать идеальный автомобиль.', rating: 5, color: 'from-rose-500 to-pink-500' },
-              { name: 'Дмитрий В.', text: 'Пользуюсь уже третий раз. Цены адекватные, автомобили всегда чистые и технически исправные.', rating: 5, color: 'from-violet-500 to-purple-500' },
+              { name: 'Арман К.', text: 'Отличный сервис! Арендовал BMW на неделю для поездки на Алаколь, всё прошло гладко. Машина была в идеальном состоянии.', rating: 5, color: 'from-orange-500 to-amber-500' },
+              { name: 'Айгерим С.', text: 'Быстрое оформление и очень удобный сайт. Служба поддержки помогла подобрать идеальный автомобиль для путешествия по Алматинской области.', rating: 5, color: 'from-rose-500 to-pink-500' },
+              { name: 'Данияр В.', text: 'Пользуюсь уже третий раз. Цены адекватные, автомобили всегда чистые и технически исправные. Рекомендую всем в Астане!', rating: 5, color: 'from-violet-500 to-purple-500' },
             ].map((review, i) => (
               <div key={i} className="glass-card rounded-3xl p-8 group">
                 <div className="flex gap-1 mb-5">
