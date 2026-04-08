@@ -1,0 +1,231 @@
+// Схема базы данных для системы аренды транспорта
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CLIENT
+  OWNER
+  ADMIN
+}
+
+enum VehicleType {
+  CAR
+  MOTORCYCLE
+  BICYCLE
+  SCOOTER
+  TRUCK
+  VAN
+}
+
+enum VehicleStatus {
+  AVAILABLE
+  RENTED
+  MAINTENANCE
+  UNAVAILABLE
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password      String
+  firstName     String
+  lastName      String
+  phone         String?
+  avatar        String?
+  role          UserRole  @default(CLIENT)
+  isVerified    Boolean   @default(false)
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Отношения
+  vehicles      Vehicle[]
+  bookings      Booking[]
+  reviews       Review[]
+  favorites     Favorite[]
+  notifications Notification[]
+
+  @@map("users")
+}
+
+model Vehicle {
+  id              String         @id @default(uuid())
+  ownerId         String
+  type            VehicleType
+  brand           String
+  model           String
+  year            Int
+  color           String
+  licensePlate    String         @unique
+  seats           Int
+  transmission    String         // MANUAL, AUTOMATIC
+  fuelType        String         // PETROL, DIESEL, ELECTRIC, HYBRID
+  pricePerDay     Decimal        @db.Decimal(10, 2)
+  pricePerHour    Decimal?       @db.Decimal(10, 2)
+  description     String         @db.Text
+  features        String[]       // GPS, AC, Bluetooth, etc.
+  images          String[]
+  location        String
+  latitude        Decimal?       @db.Decimal(10, 8)
+  longitude       Decimal?       @db.Decimal(11, 8)
+  status          VehicleStatus  @default(AVAILABLE)
+  mileage         Int?
+  isInsured       Boolean        @default(true)
+  insuranceExpiry DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  // Отношения
+  owner           User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  bookings        Booking[]
+  reviews         Review[]
+  favorites       Favorite[]
+  unavailableDates UnavailableDate[]
+
+  @@index([ownerId])
+  @@index([type])
+  @@index([status])
+  @@index([pricePerDay])
+  @@map("vehicles")
+}
+
+model Booking {
+  id              String         @id @default(uuid())
+  userId          String
+  vehicleId       String
+  startDate       DateTime
+  endDate         DateTime
+  totalDays       Int
+  pricePerDay     Decimal        @db.Decimal(10, 2)
+  totalPrice      Decimal        @db.Decimal(10, 2)
+  status          BookingStatus  @default(PENDING)
+  pickupLocation  String
+  dropoffLocation String?
+  notes           String?        @db.Text
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  // Отношения
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vehicle         Vehicle        @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  payment         Payment?
+  review          Review?
+
+  @@index([userId])
+  @@index([vehicleId])
+  @@index([status])
+  @@index([startDate, endDate])
+  @@map("bookings")
+}
+
+model Payment {
+  id              String         @id @default(uuid())
+  bookingId       String         @unique
+  amount          Decimal        @db.Decimal(10, 2)
+  currency        String         @default("USD")
+  status          PaymentStatus  @default(PENDING)
+  stripePaymentId String?        @unique
+  paymentMethod   String?        // card, bank_transfer, etc.
+  paidAt          DateTime?
+  refundedAt      DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  // Отношения
+  booking         Booking        @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId])
+  @@index([status])
+  @@map("payments")
+}
+
+model Review {
+  id          String   @id @default(uuid())
+  userId      String
+  vehicleId   String
+  bookingId   String   @unique
+  rating      Int      // 1-5
+  comment     String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Отношения
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vehicle     Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  booking     Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([vehicleId])
+  @@index([rating])
+  @@map("reviews")
+}
+
+model Favorite {
+  id        String   @id @default(uuid())
+  userId    String
+  vehicleId String
+  createdAt DateTime @default(now())
+
+  // Отношения
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, vehicleId])
+  @@index([userId])
+  @@map("favorites")
+}
+
+model UnavailableDate {
+  id        String   @id @default(uuid())
+  vehicleId String
+  startDate DateTime
+  endDate   DateTime
+  reason    String?
+  createdAt DateTime @default(now())
+
+  // Отношения
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  @@index([vehicleId])
+  @@index([startDate, endDate])
+  @@map("unavailable_dates")
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  message   String   @db.Text
+  type      String   // BOOKING, PAYMENT, REVIEW, SYSTEM
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // Отношения
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isRead])
+  @@map("notifications")
+}
