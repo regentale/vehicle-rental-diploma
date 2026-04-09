@@ -16,8 +16,8 @@
     "description": "Новая Toyota Camry 70 — комфортный седан бизнес-класса. Идеально подходит для деловых поездок и семейных путешествий по Казахстану. Полный комплект: кожаный салон, климат-контроль, камера заднего вида.",
     "location": "Алматы",
     "images": [
-      "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=800&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1621993202323-eb4e81f5af68?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1626668011687-8a114cf5a34c?w=800&h=600&fit=crop"
     ],
     "features": ["Кожаный салон", "Климат-контроль", "Камера заднего вида", "Круиз-контроль", "Подогрев сидений"],
     "status": "AVAILABLE",
@@ -45,8 +45,8 @@
     "description": "BMW X5 — мощный премиальный кроссовер для тех, кто ценит комфорт и статус. Панорамная крыша, премиум аудиосистема Harman Kardon, полный привод.",
     "location": "Алматы",
     "images": [
-      "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=800&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1616422285623-13ff0162193c?w=800&h=600&fit=crop"
     ],
     "features": ["Панорамная крыша", "Harman Kardon", "Полный привод", "Вентиляция сидений", "Head-up дисплей"],
     "status": "AVAILABLE",
@@ -74,8 +74,8 @@
     "description": "Mercedes-Benz E-Class — воплощение элегантности и инноваций. Интеллектуальная система вождения, цифровая приборная панель MBUX, непревзойдённый комфорт.",
     "location": "Астана",
     "images": [
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=600&fit=crop"
     ],
     "features": ["MBUX", "Цифровая панель", "AMG пакет", "Подогрев руля", "Ambient подсветка"],
     "status": "AVAILABLE",
@@ -104,7 +104,7 @@
     "location": "Алматы",
     "images": [
       "https://images.unsplash.com/photo-1629897048514-3dd7414fe72a?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1611958139638-77ea1da4c5e1?w=800&h=600&fit=crop"
     ],
     "features": ["Apple CarPlay", "Android Auto", "Камера 360°", "Бесключевой доступ"],
     "status": "AVAILABLE",
@@ -132,8 +132,8 @@
     "description": "Kia K5 — спортивный седан с динамичным дизайном. Турбодвигатель, адаптивный круиз-контроль и премиальная отделка салона.",
     "location": "Астана",
     "images": [
-      "https://images.unsplash.com/photo-1619976215249-0aa0c2f3dda4?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1612825173281-9a193378527e?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1619976215249-0aa0c2f3dda4?w=800&h=600&fit=crop"
     ],
     "features": ["Турбодвигатель", "Адаптивный круиз", "Вентиляция сидений", "JBL аудиосистема"],
     "status": "AVAILABLE",
@@ -161,8 +161,8 @@
     "description": "Lexus RX 350 — роскошный кроссовер японского качества. Тише, мягче и комфортнее, чем большинство конкурентов. Идеальный выбор для VIP-аренды.",
     "location": "Алматы",
     "images": [
-      "https://images.unsplash.com/photo-1568844293986-8616092df1e7?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1625231334168-29488e1cece8?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1623869675781-80aa31012a5a?w=800&h=600&fit=crop"
     ],
     "features": ["Mark Levinson аудио", "Кожа Nappa", "Адаптивная подвеска", "Проекция на лобовое"],
     "status": "AVAILABLE",
@@ -191,7 +191,7 @@
     "location": "Шымкент",
     "images": [
       "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1542362567-b07e54358753?w=800&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&h=600&fit=crop"
     ],
     "features": ["Apple CarPlay", "Камера заднего вида", "Электрорегулировка сидений"],
     "status": "AVAILABLE",
@@ -219,8 +219,8 @@
     "description": "Toyota Land Cruiser 300 — легенда бездорожья. Идеален для путешествий по Казахстану: горные дороги, степные просторы, любые условия.",
     "location": "Алматы",
     "images": [
-      "https://images.unsplash.com/photo-1594502184342-2e12f877aa73?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1585011664466-b7bbe92f34ef?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1559416523-140ddc3d238c?w=800&h=600&fit=crop"
     ],
     "features": ["7 мест", "Полный привод 4WD", "Пневмоподвеска", "Мониторы для задних пассажиров", "Лебёдка"],
     "status": "AVAILABLE",
@@ -249,7 +249,7 @@
     "location": "Астана",
     "images": [
       "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=800&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f469e?w=800&h=600&fit=crop"
     ],
     "features": ["Quattro", "Virtual Cockpit", "Bang & Olufsen", "Matrix LED", "Адаптивный круиз"],
     "status": "AVAILABLE",
