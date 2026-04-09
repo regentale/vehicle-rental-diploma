@@ -2,10 +2,10 @@ import api from './api';
 
 export interface VehicleFilters {
   type?: string;
-  minPrice?: number;
-  maxPrice?: number;
+  minPrice?: number | string;
+  maxPrice?: number | string;
   location?: string;
-  seats?: number;
+  seats?: number | string;
   transmission?: string;
   fuelType?: string;
   search?: string;

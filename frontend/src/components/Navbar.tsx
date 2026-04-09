@@ -10,7 +10,6 @@ const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
   const [notifications, setNotifications] = useState<any[]>([]);
-  const [isLoadingNotifications, setIsLoadingNotifications] = useState(false);
 
   React.useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 30);
@@ -28,13 +27,10 @@ const Navbar: React.FC = () => {
 
   const loadNotifications = async () => {
     try {
-      setIsLoadingNotifications(true);
       const data = await notificationService.getNotifications();
       setNotifications(data);
     } catch (err) {
       console.error('Failed to load notifications', err);
-    } finally {
-      setIsLoadingNotifications(false);
     }
   };
 

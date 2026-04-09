@@ -24,7 +24,6 @@ const VehiclesPage: React.FC = () => {
     page: 1,
   });
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
-  const [isFavoritesLoading, setIsFavoritesLoading] = useState(false);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['vehicles', filters],
@@ -46,13 +45,10 @@ const VehiclesPage: React.FC = () => {
     }
 
     try {
-      setIsFavoritesLoading(true);
       const favorites = await favoriteService.getFavorites();
       setFavoriteIds(new Set(favorites.map((fav: any) => fav.vehicle.id)));
     } catch (err) {
       console.error('Failed to load favorites', err);
-    } finally {
-      setIsFavoritesLoading(false);
     }
   };
 
