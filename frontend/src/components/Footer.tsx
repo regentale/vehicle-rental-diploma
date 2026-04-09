@@ -76,8 +76,8 @@ const Footer: React.FC = () => {
             <ul className="space-y-4">
               {[
                 { icon: FaEnvelope, text: 'info@rentwheels.com' },
-                { icon: FaPhone, text: '+7 (999) 123-45-67' },
-                { icon: FaMapMarkerAlt, text: 'г. Москва, ул. Примерная, д. 1' },
+                { icon: FaPhone, text: '+7 (727) 123-45-67' },
+                { icon: FaMapMarkerAlt, text: 'г. Алматы, ул. Абая, д. 52' },
                 { icon: FaClock, text: 'Круглосуточно, 24/7' },
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
@@ -94,7 +94,7 @@ const Footer: React.FC = () => {
             &copy; 2026 RentWheels. Все права защищены.
           </p>
           <p className="text-gray-700 text-xs flex items-center gap-1.5">
-            Сделано с <FaHeart className="text-rose-500 text-[10px]" /> в России
+            Сделано с <FaHeart className="text-rose-500 text-[10px]" /> в Казахстане
           </p>
         </div>
       </div>

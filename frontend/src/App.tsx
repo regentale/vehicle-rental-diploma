@@ -17,6 +17,7 @@ import MyBookingsPage from './pages/MyBookingsPage';
 import MyVehiclesPage from './pages/MyVehiclesPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import PaymentPage from './pages/PaymentPage';
+import AboutPage from './pages/AboutPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 // Components
@@ -64,6 +65,7 @@ function App() {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/vehicles" element={<VehiclesPage />} />
               <Route path="/vehicles/:id" element={<VehicleDetailPage />} />
+              <Route path="/about" element={<AboutPage />} />
               
               <Route
                 path="/booking/:vehicleId"
