@@ -1,6 +1,7 @@
 import { db } from '../utils/database';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { logger } from '../utils/logger';
 
 export class AuthService {
   async register(data: {
@@ -33,6 +34,8 @@ export class AuthService {
 
     const { password: _, ...userWithoutPassword } = user;
     const token = this.generateToken(user.id);
+    
+    logger.info(`New user registered: ${data.email}`);
 
     return { user: userWithoutPassword, token };
   }
@@ -41,18 +44,23 @@ export class AuthService {
     const user = db.findOne('users', { email });
 
     if (!user) {
+      logger.warn(`Failed login attempt for email: ${email} (User not found)`);
       throw new Error('Invalid credentials');
     }
 
     if (!user.isActive) {
+      logger.warn(`Login attempt for deactivated user: ${email}`);
       throw new Error('Account is deactivated');
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
+      logger.warn(`Failed login attempt for email: ${email} (Invalid password)`);
       throw new Error('Invalid credentials');
     }
+
+    logger.info(`User logged in: ${email}`);
 
     const token = this.generateToken(user.id);
     const { password: _, ...userWithoutPassword } = user;

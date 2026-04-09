@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { toast } from 'react-hot-toast';
+import { useAuthStore } from '../store/authStore';
 import { vehicleService } from '../services/vehicle.service';
+import { favoriteService } from '../services/favorite.service';
 import VehicleCard from '../components/VehicleCard';
 import { FaFilter, FaSearch, FaCar } from 'react-icons/fa';
 
 const VehiclesPage: React.FC = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuthStore();
+
   const [filters, setFilters] = useState({
     type: '',
     minPrice: '',
@@ -16,6 +23,8 @@ const VehiclesPage: React.FC = () => {
     search: '',
     page: 1,
   });
+  const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
+  const [isFavoritesLoading, setIsFavoritesLoading] = useState(false);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['vehicles', filters],
@@ -30,11 +39,64 @@ const VehiclesPage: React.FC = () => {
     });
   };
 
+  const fetchFavorites = async () => {
+    if (!isAuthenticated) {
+      setFavoriteIds(new Set());
+      return;
+    }
+
+    try {
+      setIsFavoritesLoading(true);
+      const favorites = await favoriteService.getFavorites();
+      setFavoriteIds(new Set(favorites.map((fav: any) => fav.vehicle.id)));
+    } catch (err) {
+      console.error('Failed to load favorites', err);
+    } finally {
+      setIsFavoritesLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchFavorites();
+  }, [isAuthenticated]);
+
+  const handleFavoriteToggle = async (vehicleId: string) => {
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
+
+    const isFavorite = favoriteIds.has(vehicleId);
+
+    try {
+      if (isFavorite) {
+        await favoriteService.removeFavorite(vehicleId);
+        setFavoriteIds((prev) => {
+          const next = new Set(prev);
+          next.delete(vehicleId);
+          return next;
+        });
+        toast.success('Удалено из избранного');
+      } else {
+        await favoriteService.addFavorite(vehicleId);
+        setFavoriteIds((prev) => {
+          const next = new Set(prev);
+          next.add(vehicleId);
+          return next;
+        });
+        toast.success('Добавлено в избранное');
+      }
+    } catch (err: any) {
+      console.error('Favorite toggle failed', err);
+      toast.error(err?.response?.data?.error || 'Не удалось обновить избранное');
+    }
+  };
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
   };
 
-  const inputClass = "w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-gray-200 placeholder-gray-500 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/20 transition-all text-sm";
+  const inputClass = "input w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-gray-200 placeholder-gray-500 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/20 transition-all text-sm";
   const labelClass = "block text-xs font-semibold text-gray-400 mb-2 tracking-wide uppercase";
 
   return (
@@ -175,7 +237,12 @@ const VehiclesPage: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                   {data?.vehicles.map((vehicle: any) => (
-                    <VehicleCard key={vehicle.id} vehicle={vehicle} />
+                    <VehicleCard
+                      key={vehicle.id}
+                      vehicle={vehicle}
+                      isFavorite={favoriteIds.has(vehicle.id)}
+                      onFavoriteToggle={handleFavoriteToggle}
+                    />
                   ))}
                 </div>
 

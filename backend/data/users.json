@@ -34,5 +34,33 @@
     "isVerified": true,
     "createdAt": "2024-01-01T00:00:00Z",
     "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "client-1",
+    "email": "client@rentwheels.kz",
+    "password": "$2a$10$placeholder-hash",
+    "firstName": "Берик",
+    "lastName": "Ахметов",
+    "phone": "+77771234567",
+    "role": "CLIENT",
+    "avatar": null,
+    "isVerified": true,
+    "isActive": true,
+    "createdAt": "2024-03-01T10:00:00Z",
+    "updatedAt": "2024-03-01T10:00:00Z"
+  },
+  {
+    "id": "1775730401438-cusx9rgjf",
+    "email": "dffdffdfd@gmail.com",
+    "password": "$2a$10$US8.euQM.wVm.h3odiqlIOwHU4IyR.b0NSqW4qONRMWreIhn7F4Hy",
+    "firstName": "regent",
+    "lastName": "val",
+    "phone": "+77055435605",
+    "role": "CLIENT",
+    "avatar": null,
+    "isVerified": false,
+    "isActive": true,
+    "createdAt": "2026-04-09T10:26:41.439Z",
+    "updatedAt": "2026-04-09T10:26:41.439Z"
   }
 ]

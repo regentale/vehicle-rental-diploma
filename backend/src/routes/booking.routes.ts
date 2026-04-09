@@ -12,7 +12,7 @@ router.post(
   '/',
   authenticate,
   validate([
-    body('vehicleId').isUUID(),
+    body('vehicleId').trim().notEmpty(),
     body('startDate').isISO8601(),
     body('endDate').isISO8601(),
     body('pickupLocation').trim().notEmpty()

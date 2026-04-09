@@ -15,7 +15,21 @@ export interface VehicleFilters {
 
 export const vehicleService = {
   async getVehicles(filters?: VehicleFilters) {
-    const response = await api.get('/vehicles', { params: filters });
+    const params: Record<string, any> = {
+      page: filters?.page ?? 1,
+      limit: filters?.limit ?? 12,
+    };
+
+    if (filters?.type) params.type = filters.type;
+    if (filters?.location) params.location = filters.location;
+    if (filters?.transmission) params.transmission = filters.transmission;
+    if (filters?.fuelType) params.fuelType = filters.fuelType;
+    if (filters?.search) params.search = filters.search;
+    if (filters?.minPrice !== undefined && filters?.minPrice !== '') params.minPrice = Number(filters.minPrice);
+    if (filters?.maxPrice !== undefined && filters?.maxPrice !== '') params.maxPrice = Number(filters.maxPrice);
+    if (filters?.seats !== undefined && filters?.seats !== '') params.seats = Number(filters.seats);
+
+    const response = await api.get('/vehicles', { params });
     return response.data;
   },
 

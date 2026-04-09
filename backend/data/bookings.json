@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "id": "1775730986968-ut86yx0w4",
+    "userId": "1775730401438-cusx9rgjf",
+    "vehicleId": "v1",
+    "startDate": "2026-04-09T10:36:22.371Z",
+    "endDate": "2026-04-10T10:36:22.371Z",
+    "totalDays": 1,
+    "pricePerDay": 25000,
+    "totalPrice": 25000,
+    "pickupLocation": "выфвыф",
+    "dropoffLocation": "ыфвфыв",
+    "status": "CANCELLED",
+    "createdAt": "2026-04-09T10:36:26.968Z",
+    "updatedAt": "2026-04-09T10:40:12.306Z"
+  }
+]

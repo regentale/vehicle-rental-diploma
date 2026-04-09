@@ -10,6 +10,7 @@
     @apply text-gray-100;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     background: #0a0118;
+    color-scheme: dark;
   }
 }
 
@@ -187,6 +188,17 @@
   .input {
     @apply w-full px-5 py-3.5 bg-white/5 border border-white/10 rounded-2xl text-gray-100 placeholder-gray-500 transition-all duration-300;
     backdrop-filter: blur(10px);
+    color-scheme: dark;
+  }
+
+  select, option {
+    background-color: #1a1425 !important;
+    color: #f3f4f6 !important;
+  }
+
+  /* Specific fix for Windows dropdowns */
+  select {
+    color-scheme: dark;
   }
 
   .input:focus {

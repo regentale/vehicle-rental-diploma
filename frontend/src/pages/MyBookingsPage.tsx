@@ -2,15 +2,34 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { bookingService } from '../services/booking.service';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import { FaCar, FaCalendar, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 
 const MyBookingsPage: React.FC = () => {
   const [statusFilter, setStatusFilter] = React.useState('');
+  const [cancellingId, setCancellingId] = React.useState<string | null>(null);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ['bookings', statusFilter],
     queryFn: () => bookingService.getBookings({ status: statusFilter || undefined }),
   });
+
+  const handleCancelBooking = async (bookingId: string) => {
+    if (!window.confirm('Вы уверены, что хотите отменить бронирование?')) {
+      return;
+    }
+
+    try {
+      setCancellingId(bookingId);
+      await bookingService.cancelBooking(bookingId);
+      toast.success('Бронирование отменено');
+      refetch();
+    } catch (error: any) {
+      toast.error(error?.response?.data?.error || 'Не удалось отменить бронирование');
+    } finally {
+      setCancellingId(null);
+    }
+  };
 
   const getStatusBadge = (status: string) => {
     const statusConfig: any = {
@@ -134,8 +153,12 @@ const MyBookingsPage: React.FC = () => {
                         Подробнее
                       </Link>
                       {booking.status === 'PENDING' && (
-                        <button className="px-4 py-2 bg-rose-500/10 text-rose-400 border border-rose-500/20 rounded-xl text-xs font-bold hover:bg-rose-500/20 transition">
-                          Отменить
+                        <button
+                          onClick={() => handleCancelBooking(booking.id)}
+                          disabled={cancellingId === booking.id}
+                          className="px-4 py-2 bg-rose-500/10 text-rose-400 border border-rose-500/20 rounded-xl text-xs font-bold hover:bg-rose-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          {cancellingId === booking.id ? 'Отмена...' : 'Отменить'}
                         </button>
                       )}
                       {booking.status === 'COMPLETED' && !booking.review && (

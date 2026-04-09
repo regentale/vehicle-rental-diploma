@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaStar, FaMapMarkerAlt, FaHeart, FaRegHeart, FaCar, FaGasPump, FaCogs, FaUsers } from 'react-icons/fa';
 
@@ -23,23 +23,48 @@ interface VehicleCardProps {
 }
 
 const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, onFavoriteToggle, isFavorite = false }) => {
-  const imageUrl = vehicle.images[0] || '';
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  const getPlaceholderColor = (type: string) => {
+    const colors: Record<string, string> = {
+      CAR: 'from-blue-600 to-blue-400',
+      MOTORCYCLE: 'from-red-600 to-red-400',
+      BICYCLE: 'from-green-600 to-green-400',
+      SCOOTER: 'from-purple-600 to-purple-400',
+      TRUCK: 'from-yellow-600 to-yellow-400',
+      VAN: 'from-indigo-600 to-indigo-400',
+    };
+    return colors[type] || 'from-gray-600 to-gray-400';
+  };
+
+  const imageUrl = vehicle.images?.[0];
+  const hasValidImage = imageUrl && !imageError;
 
   return (
     <div className="glass-card rounded-2xl overflow-hidden group">
       <div className="relative h-44 overflow-hidden">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt={`${vehicle.brand} ${vehicle.model}`}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-          />
+        {hasValidImage ? (
+          <>
+            <img
+              src={imageUrl}
+              alt={`${vehicle.brand} ${vehicle.model}`}
+              onLoad={() => setImageLoaded(true)}
+              onError={() => setImageError(true)}
+              className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ${
+                imageLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+            {!imageLoaded && (
+              <div className={`absolute inset-0 bg-gradient-to-br ${getPlaceholderColor(vehicle.type)} animate-pulse`} />
+            )}
+          </>
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-gray-800/80 via-gray-900 to-gray-800/80 flex items-center justify-center">
-            <FaCar className="text-5xl text-white/10 group-hover:text-white/20 transition-all duration-500" />
+          <div className={`w-full h-full bg-gradient-to-br ${getPlaceholderColor(vehicle.type)} flex items-center justify-center`}>
+            <FaCar className="text-5xl text-white/30 group-hover:text-white/40 transition-all duration-500" />
           </div>
         )}
-        
+
         <button
           onClick={() => onFavoriteToggle?.(vehicle.id)}
           className="absolute top-3 right-3 glass p-2 rounded-xl hover:bg-white/10 transition"
@@ -50,7 +75,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, onFavoriteToggle, is
             <FaRegHeart className="text-gray-400 text-sm" />
           )}
         </button>
-        
+
         <div className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-gradient-to-r from-orange-500 to-rose-500 text-white text-[11px] font-bold">
           {vehicle.type}
         </div>
@@ -64,7 +89,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, onFavoriteToggle, is
             {vehicle.brand} {vehicle.model}
           </h3>
         </Link>
-        
+
         <div className="flex items-center mt-1.5 text-xs text-gray-500">
           <FaMapMarkerAlt className="mr-1 text-orange-500/40" />
           <span>{vehicle.location}</span>
@@ -83,9 +108,18 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, onFavoriteToggle, is
         </div>
 
         <div className="flex items-center gap-3 mt-3 text-xs text-gray-500">
-          <span className="flex items-center gap-1"><FaUsers className="text-violet-500/40" />{vehicle.seats} мест</span>
-          <span className="flex items-center gap-1"><FaCogs className="text-rose-500/40" />{vehicle.transmission}</span>
-          <span className="flex items-center gap-1"><FaGasPump className="text-orange-500/40" />{vehicle.fuelType}</span>
+          <span className="flex items-center gap-1">
+            <FaUsers className="text-violet-500/40" />
+            {vehicle.seats} мест
+          </span>
+          <span className="flex items-center gap-1">
+            <FaCogs className="text-rose-500/40" />
+            {vehicle.transmission}
+          </span>
+          <span className="flex items-center gap-1">
+            <FaGasPump className="text-orange-500/40" />
+            {vehicle.fuelType}
+          </span>
         </div>
 
         <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/5">

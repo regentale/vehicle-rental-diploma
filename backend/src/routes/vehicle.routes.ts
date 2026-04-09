@@ -11,12 +11,12 @@ const vehicleService = new VehicleService();
 router.get(
   '/',
   validate([
-    query('type').optional().isIn(['CAR', 'MOTORCYCLE', 'BICYCLE', 'SCOOTER', 'TRUCK', 'VAN']),
-    query('minPrice').optional().isFloat({ min: 0 }),
-    query('maxPrice').optional().isFloat({ min: 0 }),
-    query('seats').optional().isInt({ min: 1 }),
-    query('page').optional().isInt({ min: 1 }),
-    query('limit').optional().isInt({ min: 1, max: 50 })
+    query('type').optional({ checkFalsy: true }).isIn(['CAR', 'MOTORCYCLE', 'BICYCLE', 'SCOOTER', 'TRUCK', 'VAN']),
+    query('minPrice').optional({ checkFalsy: true }).isFloat({ min: 0 }),
+    query('maxPrice').optional({ checkFalsy: true }).isFloat({ min: 0 }),
+    query('seats').optional({ checkFalsy: true }).isInt({ min: 1 }),
+    query('page').optional({ checkFalsy: true }).isInt({ min: 1 }),
+    query('limit').optional({ checkFalsy: true }).isInt({ min: 1, max: 50 })
   ]),
   async (req, res, next) => {
     try {
@@ -85,6 +85,20 @@ router.put(
   '/:id',
   authenticate,
   authorize('OWNER', 'ADMIN'),
+  validate([
+    body('type').optional().isIn(['CAR', 'MOTORCYCLE', 'BICYCLE', 'SCOOTER', 'TRUCK', 'VAN']),
+    body('brand').optional().trim().notEmpty(),
+    body('model').optional().trim().notEmpty(),
+    body('year').optional().isInt({ min: 1900, max: new Date().getFullYear() + 1 }),
+    body('color').optional().trim().notEmpty(),
+    body('licensePlate').optional().trim().notEmpty(),
+    body('seats').optional().isInt({ min: 1 }),
+    body('transmission').optional().isIn(['MANUAL', 'AUTOMATIC']),
+    body('fuelType').optional().isIn(['PETROL', 'DIESEL', 'ELECTRIC', 'HYBRID']),
+    body('pricePerDay').optional().isFloat({ min: 0 }),
+    body('description').optional().trim().notEmpty(),
+    body('location').optional().trim().notEmpty()
+  ]),
   async (req: AuthRequest, res, next) => {
     try {
       const vehicle = await vehicleService.updateVehicle(

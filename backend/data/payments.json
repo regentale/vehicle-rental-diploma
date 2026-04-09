@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": "1775730986969-7pgu2z2rs",
+    "bookingId": "1775730986968-ut86yx0w4",
+    "amount": 25000,
+    "currency": "USD",
+    "status": "PENDING",
+    "createdAt": "2026-04-09T10:36:26.969Z",
+    "updatedAt": "2026-04-09T10:36:26.969Z"
+  }
+]

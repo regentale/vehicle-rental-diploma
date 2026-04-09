@@ -164,6 +164,44 @@ npm run dev
 
 **База данных создастся автоматически при первом запуске!**
 
+## 🏛️ Архитектура
+
+Ниже представлена высокоуровневая архитектура нашей веб-платформы:
+
+```mermaid
+graph TD
+    Client[Клиентский браузер\nReact + Vite]
+    API[Backend API\nNode.js + Express]
+    DB[(JSON Files\nFile System)]
+    Stripe[Stripe API\nПлатежи]
+    Mail[SMTP/Nodemailer\nEmail Уведомления]
+
+    Client -- HTTP/REST --> API
+    API -- Чтение/Запись --> DB
+    API -- Webhooks/API --> Stripe
+    API --> Mail
+    
+    subgraph Frontend
+        React[React Components]
+        State[Zustand / React Query]
+        Router[React Router]
+        React <--> State
+        React <--> Router
+    end
+    
+    subgraph Backend
+        Controllers[Контроллеры/Routes]
+        Services[Бизнес-логика]
+        DataLayer[Database Utils]
+        Middleware[Auth/Validations/Rate Limit]
+        Controllers <--> Services
+        Services <--> DataLayer
+    end
+    
+    State -- Axios --> Middleware
+    Middleware --> Controllers
+```
+
 ## 📁 Структура проекта
 
 ```

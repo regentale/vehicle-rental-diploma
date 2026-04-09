@@ -1,18 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
-import { FaCar, FaUser, FaBars, FaTimes, FaBell } from 'react-icons/fa';
+import { notificationService } from '../services/notification.service';
+import NotificationsDropdown from './NotificationsDropdown';
+import { FaCar, FaUser, FaBars, FaTimes } from 'react-icons/fa';
 
 const Navbar: React.FC = () => {
   const { isAuthenticated, user, logout } = useAuthStore();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
+  const [notifications, setNotifications] = useState<any[]>([]);
+  const [isLoadingNotifications, setIsLoadingNotifications] = useState(false);
 
   React.useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      loadNotifications();
+      const interval = setInterval(loadNotifications, 30000); // Обновлять каждые 30 секунд
+      return () => clearInterval(interval);
+    }
+  }, [isAuthenticated]);
+
+  const loadNotifications = async () => {
+    try {
+      setIsLoadingNotifications(true);
+      const data = await notificationService.getNotifications();
+      setNotifications(data);
+    } catch (err) {
+      console.error('Failed to load notifications', err);
+    } finally {
+      setIsLoadingNotifications(false);
+    }
+  };
+
+  const unreadCount = notifications.filter((n: any) => !n.isRead).length;
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -58,12 +84,11 @@ const Navbar: React.FC = () => {
                   </Link>
                 )}
 
-                <button className="relative text-gray-400 hover:text-orange-400 transition-colors duration-300">
-                  <FaBell className="text-lg" />
-                  <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-gradient-to-br from-orange-500 to-rose-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold animate-pulse">
-                    3
-                  </span>
-                </button>
+                <NotificationsDropdown
+                  notifications={notifications}
+                  unreadCount={unreadCount}
+                  onUpdate={loadNotifications}
+                />
 
                 <div className="relative group">
                   <button className="flex items-center space-x-2 text-gray-400 hover:text-orange-400 transition-colors duration-300">

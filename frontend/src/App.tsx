@@ -16,6 +16,7 @@ import ProfilePage from './pages/ProfilePage';
 import MyBookingsPage from './pages/MyBookingsPage';
 import MyVehiclesPage from './pages/MyVehiclesPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
+import PaymentPage from './pages/PaymentPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 // Components
@@ -69,6 +70,15 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <BookingPage />
+                  </ProtectedRoute>
+                }
+              />
+              
+              <Route
+                path="/payment/:bookingId"
+                element={
+                  <ProtectedRoute>
+                    <PaymentPage />
                   </ProtectedRoute>
                 }
               />
